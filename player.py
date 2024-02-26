@@ -2,7 +2,7 @@ import os
 from time import sleep
 
 while True:
-    to_open = input("Which file to open?") 
+    to_open = input("Which file to open? ") 
     try:
         f = open(to_open)
         break
@@ -11,7 +11,8 @@ while True:
     
 text = "██"
 
-def print_frame(data):
+#creates a whole frame as a string to avoid flickering
+def create_frame(data):
     current_y = 0
     frame = ""
     for d in data:
@@ -29,11 +30,16 @@ def print_frame(data):
     return frame
 
 
+
+def player(data):
+    while True:
+        for pixel in pixels:
+            print (create_frame(pixel), end='\r')
+            sleep(0.03)
+
+
+    
 lines = f.readlines()
-f.close()
-while True:
-    for line in lines:
-        pixel = line.strip().split("#")
-        print (print_frame(pixel), end='\r')
-        
-        sleep(0.03)
+pixels = [x.strip().split("#") for x in lines]
+
+player(pixels)
