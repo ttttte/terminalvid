@@ -1,16 +1,18 @@
 import cv2
 from time import sleep
 
-name = "bad_apple.webm"
+
+name = "aki.mp4"
 vidcap = cv2.VideoCapture(f'./{name}')
 
+#calculate aspect ratio
 original_width = int(vidcap.get(cv2.CAP_PROP_FRAME_WIDTH))
 original_height = int(vidcap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
 aspect_ratio = original_width / original_height
 
+#whatever fits your sreen
 w = 106
-#Calculate the height to maintain aspect ratio
+#calculate the height to maintain aspect ratio
 h = int(w / aspect_ratio)
 
 total_frames = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -20,13 +22,11 @@ filename = name.split(".")[0]
 print (filename)
 f = open(f"{filename}.txt", "a")
 
-while(True): 
-      
+#save the video into txt file
+while(True):       
     ret,frame = vidcap.read() 
-
     if ret:
         resized_frame = cv2.resize(frame, (w, h)) 
-
         for y in range(h):
             for x in range(w):
                 (b, g, r) = resized_frame[y, x]
